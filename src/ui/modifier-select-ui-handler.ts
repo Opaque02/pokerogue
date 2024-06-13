@@ -280,6 +280,8 @@ export default class ModifierSelectUiHandler extends AwaitableUiHandler {
           this.moveInfoOverlay.active = false; // don't clear here as we might need to restore the UI in case the user cancels the action
         }
       }
+    } else if (button === Button.V) {
+      console.log("The V button was pressed!");
     } else {
       switch (button) {
       case Button.UP:
