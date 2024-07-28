@@ -1172,10 +1172,11 @@ export default class StarterSelectUiHandler extends MessageUiHandler {
 
           const isPartyValid = this.isPartyValid();
           const isValidForChallenge = new Utils.BooleanHolder(true);
+          const props = this.scene.gameData.getSpeciesDexAttrProps(species, this.dexAttrCursor);
           if (isPartyValid) {
-            Challenge.applyChallenges(this.scene.gameMode, Challenge.ChallengeType.STARTER_CHOICE, species, isValidForChallenge, this.scene.gameData.getSpeciesDexAttrProps(species, this.scene.gameData.getSpeciesDefaultDexAttr(species, false, true)), !!(this.starterSpecies.length));
+            Challenge.applyChallenges(this.scene.gameMode, Challenge.ChallengeType.STARTER_CHOICE, species, isValidForChallenge, props, !!(this.starterSpecies.length));
           } else {
-            Challenge.applyChallenges(this.scene.gameMode, Challenge.ChallengeType.STARTER_CHOICE, species, isValidForChallenge, this.scene.gameData.getSpeciesDexAttrProps(species, this.scene.gameData.getSpeciesDefaultDexAttr(species, false, true)), !!(this.starterSpecies.length), false, false);
+            Challenge.applyChallenges(this.scene.gameMode, Challenge.ChallengeType.STARTER_CHOICE, species, isValidForChallenge, props, !!(this.starterSpecies.length), false, false);
           }
 
           const currentPartyValue = this.starterSpecies.map(s => s.generation).reduce((total: number, gen: number, i: number) => total += this.scene.gameData.getSpeciesStarterValue(this.starterSpecies[i].speciesId), 0);
@@ -2676,6 +2677,7 @@ export default class StarterSelectUiHandler extends MessageUiHandler {
     this.pokemonAdditionalMoveCountLabel.setVisible(this.speciesStarterMoves.length > 4);
 
     this.updateInstructions();
+    this.tryUpdateValue();
   }
 
   setTypeIcons(type1: Type, type2: Type): void {
@@ -2809,10 +2811,29 @@ export default class StarterSelectUiHandler extends MessageUiHandler {
        * we change to can AddParty value to true since the user has enough cost to choose this pokemon and this pokemon registered too.
        */
       const isValidForChallenge = new Utils.BooleanHolder(true);
-      if (isPartyValid) { // we have two checks here - one for the party being valid and one for not. This comes from mono type challenges - if the party is valid it will check pokemon's evolutions and forms, and if it's not valid it won't check their evolutions and forms
-        Challenge.applyChallenges(this.scene.gameMode, Challenge.ChallengeType.STARTER_CHOICE, this.allSpecies[s], isValidForChallenge, this.scene.gameData.getSpeciesDexAttrProps(this.allSpecies[s], this.scene.gameData.getSpeciesDefaultDexAttr(this.allSpecies[s], false, true)), !!(this.starterSpecies.length + (add ? 1 : 0)));
+
+      let props = 0n;
+      /* this will be a temporary dex attr that we use to check whether a pokemon is valid for a challenge.
+       * when checking for certain challenges (i.e. mono type), we need to check for form changes AND evolutions
+       * However, since some pokemon can evolve based on their intial gender/form, we need a way to look for that
+       * This temporary dex attr will therefore ONLY look at gender and form, since there's no cases of shinies/variants
+       * having different evolutions to their non shiny/variant part, and so those can be ignored
+       */
+
+      if (this.starterPreferences[this.allSpecies[s].speciesId]?.female) {
+        props += DexAttr.FEMALE;
       } else {
-        Challenge.applyChallenges(this.scene.gameMode, Challenge.ChallengeType.STARTER_CHOICE, this.allSpecies[s], isValidForChallenge, this.scene.gameData.getSpeciesDexAttrProps(this.allSpecies[s], this.scene.gameData.getSpeciesDefaultDexAttr(this.allSpecies[s], false, true)), !!(this.starterSpecies.length + (add ? 1 : 0)), false, false);
+        props += DexAttr.MALE;
+      }
+      if (this.starterPreferences[this.allSpecies[s].speciesId]?.form) {
+        props += BigInt(Math.pow(2, this.starterPreferences[this.allSpecies[s].speciesId]?.form)) * DexAttr.DEFAULT_FORM;
+      } else {
+        props += DexAttr.DEFAULT_FORM;
+      }
+      if (isPartyValid) { // we have two checks here - one for the party being valid and one for not. This comes from mono type challenges - if the party is valid it will check pokemon's evolutions and forms, and if it's not valid it won't check their evolutions and forms
+        Challenge.applyChallenges(this.scene.gameMode, Challenge.ChallengeType.STARTER_CHOICE, this.allSpecies[s], isValidForChallenge, this.scene.gameData.getSpeciesDexAttrProps(this.allSpecies[s], props), !!(this.starterSpecies.length + (add ? 1 : 0)));
+      } else {
+        Challenge.applyChallenges(this.scene.gameMode, Challenge.ChallengeType.STARTER_CHOICE, this.allSpecies[s], isValidForChallenge, this.scene.gameData.getSpeciesDexAttrProps(this.allSpecies[s], props), !!(this.starterSpecies.length + (add ? 1 : 0)), false, false);
       }
 
       const canBeChosen = remainValue >= speciesStarterValue && isValidForChallenge.value;

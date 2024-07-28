@@ -547,10 +547,15 @@ export class SingleTypeChallenge extends Challenge {
       while (speciesToCheck.length) {
         const checking = speciesToCheck.pop();
         if (pokemonEvolutions.hasOwnProperty(checking) && checkPokemonEvolutions) {
-          pokemonEvolutions[checking].forEach(e => {
-            speciesToCheck.push(e.speciesId);
-            types.push(getPokemonSpecies(e.speciesId).type1, getPokemonSpecies(e.speciesId).type2);
-          });
+          if (pokemon.speciesId === Species.BURMY) {
+            const pokemonEvolution = dexAttr.female ? getPokemonSpeciesForm(Species.WORMADAM, dexAttr.formIndex) : getPokemonSpecies(Species.MOTHIM);
+            types.push(pokemonEvolution.type1, pokemonEvolution.type2);
+          } else {
+            pokemonEvolutions[checking].forEach(e => {
+              speciesToCheck.push(e.speciesId);
+              types.push(getPokemonSpecies(e.speciesId).type1, getPokemonSpecies(e.speciesId).type2);
+            });
+          }
         }
         if (pokemonFormChanges.hasOwnProperty(checking) && checkPokemonForms) {
           pokemonFormChanges[checking].forEach(f1 => {

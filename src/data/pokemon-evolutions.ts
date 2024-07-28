@@ -579,7 +579,10 @@ export const pokemonEvolutions: PokemonEvolutions = {
   ],
   [Species.BURMY]: [
     new SpeciesEvolution(Species.MOTHIM, 20, null, new SpeciesEvolutionCondition(p => p.gender === Gender.MALE, p => p.gender = Gender.MALE)),
-    new SpeciesEvolution(Species.WORMADAM, 20, null, new SpeciesEvolutionCondition(p => p.gender === Gender.FEMALE, p => p.gender = Gender.FEMALE))
+    new SpeciesFormEvolution(Species.WORMADAM, "", "plant", 20, null, new SpeciesEvolutionCondition(p => p.gender === Gender.FEMALE && p.formIndex === 0 && p.scene.arena.biomeType === Biome.GRASS)),
+    new SpeciesFormEvolution(Species.WORMADAM, "", "sandy", 20, null, new SpeciesEvolutionCondition(p => p.gender === Gender.FEMALE && p.formIndex === 1 && p.scene.arena.biomeType === Biome.CAVE)),
+    new SpeciesFormEvolution(Species.WORMADAM, "", "trash", 20, null, new SpeciesEvolutionCondition(p => p.gender === Gender.FEMALE && p.formIndex === 2 && p.scene.arena.biomeType === Biome.METROPOLIS))
+    //new SpeciesEvolution(Species.WORMADAM, 20, null, new SpeciesEvolutionCondition(p => p.gender === Gender.FEMALE, p => p.gender = Gender.FEMALE))
   ],
   [Species.COMBEE]: [
     new SpeciesEvolution(Species.VESPIQUEN, 21, null, new SpeciesEvolutionCondition(p => p.gender === Gender.FEMALE, p => p.gender = Gender.FEMALE))
