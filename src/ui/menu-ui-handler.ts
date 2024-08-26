@@ -2,7 +2,7 @@ import BattleScene, { bypassLogin } from "../battle-scene";
 import { TextStyle, addTextObject, getTextStyleOptions } from "./text";
 import { Mode } from "./ui";
 import * as Utils from "../utils";
-import { addWindow } from "./ui-theme";
+import { addWindow, WindowVariant } from "./ui-theme";
 import MessageUiHandler from "./message-ui-handler";
 import { OptionSelectConfig, OptionSelectItem } from "./abstact-option-select-ui-handler";
 import { Tutorial, handleTutorial } from "../tutorial";
@@ -32,6 +32,10 @@ const githubUrl = "https://github.com/pagefaultgames/pokerogue";
 const redditUrl = "https://www.reddit.com/r/pokerogue";
 
 export default class MenuUiHandler extends MessageUiHandler {
+  private readonly textPadding = 8;
+  private readonly defaultMessageBoxWidth = 220;
+  private readonly defaultWordWrapWidth = 1224;
+
   private menuContainer: Phaser.GameObjects.Container;
   private menuMessageBoxContainer: Phaser.GameObjects.Container;
   private menuOverlay: Phaser.GameObjects.Rectangle;
@@ -47,13 +51,13 @@ export default class MenuUiHandler extends MessageUiHandler {
   protected manageDataConfig: OptionSelectConfig;
   protected communityConfig: OptionSelectConfig;
 
+  // Windows for the default message box and the message box for testing dialogue
+  private menuMessageBox: Phaser.GameObjects.NineSlice;
+  private dialogueMessageBox: Phaser.GameObjects.NineSlice;
+
   protected scale: number = 0.1666666667;
 
   public bgmBar: BgmBar;
-
-  private readonly defaultWordWrapWidth = 1224;
-
-  private readonly defaultMessageBoxWidth = 220;
 
   constructor(scene: BattleScene, mode: Mode | null = null) {
     super(scene, mode);
@@ -136,19 +140,26 @@ export default class MenuUiHandler extends MessageUiHandler {
     this.menuMessageBoxContainer = this.scene.add.container(0, 130);
     this.menuMessageBoxContainer.setName("menu-message-box");
     this.menuMessageBoxContainer.setVisible(false);
-    this.menuContainer.add(this.menuMessageBoxContainer);
 
-    const menuMessageBox = addWindow(this.scene, 0, -0, this.defaultMessageBoxWidth, 48);
-    menuMessageBox.setOrigin(0, 0);
-    this.menuMessageBoxContainer.add(menuMessageBox);
+    // Window for general messages
+    this.menuMessageBox = addWindow(this.scene, 0, 0, this.defaultMessageBoxWidth, 48);
+    this.menuMessageBox.setOrigin(0, 0);
+    this.menuMessageBoxContainer.add(this.menuMessageBox);
 
-    const menuMessageText = addTextObject(this.scene, 8, 8, "", TextStyle.WINDOW, { maxLines: 2 });
+    // Full-width window used for testing dialog messages in debug mode
+    this.dialogueMessageBox = addWindow(this.scene, -this.textPadding, 0, this.scene.game.canvas.width / 6 + this.textPadding * 2, 49, false, false, 0, 0, WindowVariant.THIN);
+    this.dialogueMessageBox.setOrigin(0, 0);
+    this.menuMessageBoxContainer.add(this.dialogueMessageBox);
+
+    const menuMessageText = addTextObject(this.scene, this.textPadding, this.textPadding, "", TextStyle.WINDOW, { maxLines: 2 });
     menuMessageText.setName("menu-message");
-    menuMessageText.setWordWrapWidth(this.defaultWordWrapWidth);
     menuMessageText.setOrigin(0, 0);
     this.menuMessageBoxContainer.add(menuMessageText);
 
     this.message = menuMessageText;
+
+    // By default we use the general purpose message window
+    this.setDialogTestMode(false);
 
     this.menuContainer.add(this.menuMessageBoxContainer);
 
@@ -278,17 +289,12 @@ export default class MenuUiHandler extends MessageUiHandler {
                     }
                   }
                 }
-                //const messageBoxText = this.menuMessageBoxContainer.list.find(o => o.type === "Text");
-                //const messageBoxContainer = this.menuMessageBoxContainer.list.find(o => o.type === "NineSlice");
-                // the value of 1780 is taken from the battle-message-ui-handler; this is the width of the dialogue before it starts to wrap
-                //messageBoxText.setWordWrapWidth(1780);
-                //messageBoxContainer.width = 1320;
-                ui.setMode(Mode.MESSAGE);
+                // Switch to the dialog test window
+                this.setDialogTestMode(true);
                 ui.showText(i18next.t(translatedString, interpolatorOptions), null, () => this.scene.ui.showText("", 0, () => {
                   handler.tutorialActive = false;
-                  ui.revertMode();
-                  //messageBoxText.setWordWrapWidth(this.defaultWordWrapWidth);
-                  //messageBoxContainer.width = this.defaultMessageBoxWidth;
+                  // Go back to the default message window
+                  this.setDialogTestMode(false);
                 }), null, true);
               },
               () => {
@@ -570,6 +576,21 @@ export default class MenuUiHandler extends MessageUiHandler {
     }
 
     return success || error;
+  }
+
+  /**
+   * Switch the message window style and size when we are replaying dialog for debug purposes
+   * In "dialog test mode", the window takes the whole width of the screen and the text
+   * is set up to wrap around the same way as the dialogue during the game
+   * @param isDialogMode whether to use the dialog test
+   */
+  setDialogTestMode(isDialogMode: boolean) {
+    this.menuMessageBox.setVisible(!isDialogMode);
+    this.dialogueMessageBox.setVisible(isDialogMode);
+    // If we're testing dialog, we use the same word wrapping as the battle message handler
+    this.message.setWordWrapWidth(isDialogMode? this.scene.ui.getMessageHandler().wordWrapWidth : this.defaultWordWrapWidth);
+    this.message.setX(isDialogMode? this.textPadding + 1 : this.textPadding);
+    this.message.setY(isDialogMode? this.textPadding + 0.4 : this.textPadding);
   }
 
   showText(text: string, delay?: number, callback?: Function, callbackDelay?: number, prompt?: boolean, promptDelay?: number): void {
