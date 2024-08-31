@@ -1,27 +1,31 @@
 {
   "stench": {
-    "name": "Stench",
-    "description": "By releasing stench when attacking, this Pokémon may cause the target to flinch."
+    "name": "What's new panel",
+    "description": "This! Use it to see what's new at a glance with the new release! Yay!"
   },
   "drizzle": {
-    "name": "Drizzle",
-    "description": "The Pokémon makes it rain when it enters a battle."
+    "name": "Run history now added",
+    "description": "See your previous runs and how you did! You can save up to 25 runs per device!"
+  },
+  "newThing": {
+    "name": "Inverse challenge mode!",
+    "description": "Try your skill at the latest challenge, Inverse Challenge Mode! Nothing is what it seems, and everything is back to front!"
   },
   "speedBoost": {
-    "name": "Speed Boost",
-    "description": "Its Speed stat is boosted every turn."
+    "name": "New villains added",
+    "description": "Test your skills against the likes of Lusamine and Chairman Rose"
   },
   "battleArmor": {
-    "name": "Battle Armor",
-    "description": "Hard armor protects the Pokémon from critical hits."
+    "name": "New audio settings added",
+    "description": "This lets you tweak your audio experience just the way you want to"
   },
   "sturdy": {
-    "name": "Sturdy",
-    "description": "It cannot be knocked out with one hit. One-hit KO moves cannot knock it out, either."
+    "name": "Default shop cursor behaviour changed",
+    "description": "Players can now choose the default location of the shop cursor. You can find it under Settings -> Display"
   },
   "damp": {
-    "name": "Damp",
-    "description": "Prevents the use of explosive moves, such as Self-Destruct, by dampening its surroundings."
+    "name": "Improved indicators for type-effectiveness",
+    "description": "It now correctly represents type-changing moves and abilities like Hidden Power and Pixilate - just in time for the Inverse Challenge"
   },
   "limber": {
     "name": "Limber",
