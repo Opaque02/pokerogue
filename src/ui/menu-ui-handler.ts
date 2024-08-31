@@ -23,6 +23,7 @@ enum MenuOptions {
   EGG_GACHA,
   MANAGE_DATA,
   COMMUNITY,
+  WHATS_NEW,
   SAVE_AND_QUIT,
   LOG_OUT,
 }
@@ -533,6 +534,10 @@ export default class MenuUiHandler extends MessageUiHandler {
         break;
       case MenuOptions.COMMUNITY:
         ui.setOverlayMode(Mode.MENU_OPTION_SELECT, this.communityConfig);
+        success = true;
+        break;
+      case MenuOptions.WHATS_NEW:
+        ui.setOverlayMode(Mode.WHATS_NEW);
         success = true;
         break;
       case MenuOptions.SAVE_AND_QUIT:

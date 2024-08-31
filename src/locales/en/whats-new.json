@@ -1,0 +1,74 @@
+{
+  "stench": {
+    "name": "Stench",
+    "description": "By releasing stench when attacking, this Pokémon may cause the target to flinch."
+  },
+  "drizzle": {
+    "name": "Drizzle",
+    "description": "The Pokémon makes it rain when it enters a battle."
+  },
+  "speedBoost": {
+    "name": "Speed Boost",
+    "description": "Its Speed stat is boosted every turn."
+  },
+  "battleArmor": {
+    "name": "Battle Armor",
+    "description": "Hard armor protects the Pokémon from critical hits."
+  },
+  "sturdy": {
+    "name": "Sturdy",
+    "description": "It cannot be knocked out with one hit. One-hit KO moves cannot knock it out, either."
+  },
+  "damp": {
+    "name": "Damp",
+    "description": "Prevents the use of explosive moves, such as Self-Destruct, by dampening its surroundings."
+  },
+  "limber": {
+    "name": "Limber",
+    "description": "Its limber body protects the Pokémon from paralysis."
+  },
+  "insomnia": {
+    "name": "Insomnia",
+    "description": "The Pokémon is suffering from insomnia and cannot fall asleep."
+  },
+  "colorChange": {
+    "name": "Color Change",
+    "description": "The Pokémon's type becomes the type of the move used on it."
+  },
+  "immunity": {
+    "name": "Immunity",
+    "description": "The immune system of the Pokémon prevents it from getting poisoned."
+  },
+  "flashFire": {
+    "name": "Flash Fire",
+    "description": "Powers up the Pokémon's Fire-type moves if it's hit by one."
+  },
+  "shieldDust": {
+    "name": "Shield Dust",
+    "description": "This Pokémon's dust blocks the additional effects of attacks taken."
+  },
+  "ownTempo": {
+    "name": "Own Tempo",
+    "description": "This Pokémon has its own tempo, and that prevents it from becoming confused."
+  },
+  "suctionCups": {
+    "name": "Suction Cups",
+    "description": "This Pokémon uses suction cups to stay in one spot to negate all moves and items that force switching out."
+  },
+  "intimidate": {
+    "name": "Intimidate",
+    "description": "The Pokémon intimidates opposing Pokémon upon entering battle, lowering their Attack stat."
+  },
+  "shadowTag": {
+    "name": "Shadow Tag",
+    "description": "This Pokémon steps on the opposing Pokémon's shadow to prevent it from escaping."
+  },
+  "roughSkin": {
+    "name": "Rough Skin",
+    "description": "This Pokémon inflicts damage with its rough skin to the attacker on contact."
+  },
+  "wonderGuard": {
+    "name": "Wonder Guard",
+    "description": "Its mysterious power only lets supereffective moves hit the Pokémon."
+  }
+}

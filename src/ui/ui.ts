@@ -51,6 +51,7 @@ import RunHistoryUiHandler from "./run-history-ui-handler";
 import RunInfoUiHandler from "./run-info-ui-handler";
 import TestDialogueUiHandler from "#app/ui/test-dialogue-ui-handler";
 import AutoCompleteUiHandler from "./autocomplete-ui-handler";
+import WhatsNewUiHandler from "./whats-new-ui-handler";
 
 export enum Mode {
   MESSAGE,
@@ -94,6 +95,7 @@ export enum Mode {
   TEST_DIALOGUE,
   AUTO_COMPLETE,
   ADMIN,
+  WHATS_NEW,
 }
 
 const transitionModes = [
@@ -134,6 +136,7 @@ const noTransitionModes = [
   Mode.TEST_DIALOGUE,
   Mode.AUTO_COMPLETE,
   Mode.ADMIN,
+  Mode.WHATS_NEW,
 ];
 
 export default class UI extends Phaser.GameObjects.Container {
@@ -200,6 +203,7 @@ export default class UI extends Phaser.GameObjects.Container {
       new TestDialogueUiHandler(scene, Mode.TEST_DIALOGUE),
       new AutoCompleteUiHandler(scene),
       new AdminUiHandler(scene),
+      new WhatsNewUiHandler(scene),
     ];
   }
 
