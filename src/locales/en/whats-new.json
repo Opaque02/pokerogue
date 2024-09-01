@@ -20,59 +20,31 @@
     "description": "This lets you tweak your audio experience just the way you want to"
   },
   "sturdy": {
-    "name": "Default shop cursor behaviour changed",
-    "description": "Players can now choose the default location of the shop cursor. You can find it under Settings -> Display"
+    "name": "Changed shop cursor",
+    "description": "Players can now choose the default location of the shop cursor instead of always being on the shop icons. You can find it under Settings -> Display"
   },
   "damp": {
-    "name": "Improved indicators for type-effectiveness",
-    "description": "It now correctly represents type-changing moves and abilities like Hidden Power and Pixilate - just in time for the Inverse Challenge"
+    "name": "Type-effectiveness indicators",
+    "description": "The type-effectiveness indicators now correctly represents type-changing moves and abilities like Hidden Power and Pixilate - just in time for the Inverse Challenge"
   },
-  "limber": {
-    "name": "Limber",
-    "description": "Its limber body protects the Pokémon from paralysis."
+  "endless": {
+    "name": "Endless loop changed",
+    "description": "Endless plains loop has been ended! You will now land in a random biome after defeating an end biome boss"
   },
-  "insomnia": {
-    "name": "Insomnia",
-    "description": "The Pokémon is suffering from insomnia and cannot fall asleep."
+  "starterSelect": {
+    "name": "Starter select improvements",
+    "description": "Various updates and improvements to the starter select system, from bug fixing to new functionality!"
   },
-  "colorChange": {
-    "name": "Color Change",
-    "description": "The Pokémon's type becomes the type of the move used on it."
+  "moves": {
+    "name": "Slight move changes",
+    "description": "Dark void has gen 6 accuracy, Zippy Zap got reverted back to LGPE version, bugs with Destiny Bond, Decorate, Lunar Blessing and Jaw Lock addressed and single target moves in double battles now deal correct damage"
   },
-  "immunity": {
-    "name": "Immunity",
-    "description": "The immune system of the Pokémon prevents it from getting poisoned."
+  "goldenVouchers": {
+    "name": "求",
+    "description": "Made it so that egg gachas give you 10 vouchers if you try to use it when you don't have enough vouchers. Also made eggs take less waves to hatch: common eggs take 1 wave (down from 10), great take 5 waves (down from 25), ultra take 10 (down from 50) and legendary take 50 (down from 100)"
   },
-  "flashFire": {
-    "name": "Flash Fire",
-    "description": "Powers up the Pokémon's Fire-type moves if it's hit by one."
-  },
-  "shieldDust": {
-    "name": "Shield Dust",
-    "description": "This Pokémon's dust blocks the additional effects of attacks taken."
-  },
-  "ownTempo": {
-    "name": "Own Tempo",
-    "description": "This Pokémon has its own tempo, and that prevents it from becoming confused."
-  },
-  "suctionCups": {
-    "name": "Suction Cups",
-    "description": "This Pokémon uses suction cups to stay in one spot to negate all moves and items that force switching out."
-  },
-  "intimidate": {
-    "name": "Intimidate",
-    "description": "The Pokémon intimidates opposing Pokémon upon entering battle, lowering their Attack stat."
-  },
-  "shadowTag": {
-    "name": "Shadow Tag",
-    "description": "This Pokémon steps on the opposing Pokémon's shadow to prevent it from escaping."
-  },
-  "roughSkin": {
-    "name": "Rough Skin",
-    "description": "This Pokémon inflicts damage with its rough skin to the attacker on contact."
-  },
-  "wonderGuard": {
-    "name": "Wonder Guard",
-    "description": "Its mysterious power only lets supereffective moves hit the Pokémon."
+  "ivScanner": {
+    "name": "Fixed legacy mode IV Scanner",
+    "description": "You can now finally read what the IV scanner is saying when playing in legacy mode."
   }
 }
